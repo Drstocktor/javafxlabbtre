@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="40.0" prefWidth="600.0" spacing="5.0">
@@ -13,6 +12,7 @@
             <Button mnemonicParsing="false" text="Rectangle" />
             <Button mnemonicParsing="false" text="Triangle" />
             <ColorPicker />
+            <ChoiceBox prefWidth="150.0" />
          </children>
       </HBox>
       <Canvas height="400" width="400" />
