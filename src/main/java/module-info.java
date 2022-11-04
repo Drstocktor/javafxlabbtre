@@ -5,4 +5,6 @@ module com.example.javafxlabbtre {
 
     opens com.example.javafxlabbtre to javafx.fxml;
     exports com.example.javafxlabbtre;
+    exports com.example.javafxlabbtre.controller;
+    opens com.example.javafxlabbtre.controller to javafx.fxml;
 }

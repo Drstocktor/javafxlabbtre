@@ -15,6 +15,6 @@
             <ColorPicker />
          </children>
       </HBox>
-      <Canvas height="368.0" width="601.0" />
+      <Canvas height="400" width="400" />
    </children>
 </VBox>
