@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="second commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Circle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Shape.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Square.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Triangle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/Size.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Rectangle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -81,6 +81,8 @@
       <workItem from="1666591414910" duration="2442000" />
       <workItem from="1666637714026" duration="86000" />
       <workItem from="1667543654108" duration="360000" />
+      <workItem from="1667608315384" duration="4829000" />
+      <workItem from="1667613792989" duration="4078000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1666206754650</created>
@@ -117,5 +119,20 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="second commit" />
     <option name="LAST_COMMIT_MESSAGE" value="second commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/HelloApplication.java</url>
+          <line>9</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
