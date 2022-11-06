@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="second commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/Size.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" afterDir="false" />
+    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="lagt till metoder, todos, ändrat action metoder för meny.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Rectangle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/Shapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/Mode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Circle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Rectangle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Shape.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Triangle.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +83,8 @@
       <workItem from="1666637714026" duration="86000" />
       <workItem from="1667543654108" duration="360000" />
       <workItem from="1667608315384" duration="4829000" />
-      <workItem from="1667613792989" duration="4078000" />
+      <workItem from="1667613792989" duration="5010000" />
+      <workItem from="1667693022161" duration="11342000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1666206754650</created>
@@ -98,7 +100,13 @@
       <option name="project" value="LOCAL" />
       <updated>1666637785611</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL−00003" summary="lagt till metoder, todos, ändrat action metoder för meny.">
+      <created>1667619253022</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1667619253022</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,7 +126,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="second commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="second commit" />
+    <MESSAGE value="lagt till metoder, todos, ändrat action metoder för meny." />
+    <option name="LAST_COMMIT_MESSAGE" value="lagt till metoder, todos, ändrat action metoder för meny." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

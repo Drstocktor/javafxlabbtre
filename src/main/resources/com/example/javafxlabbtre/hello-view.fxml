@@ -8,14 +8,14 @@
    <children>
       <HBox prefHeight="40.0" prefWidth="600.0" spacing="5.0">
          <children>
-            <Button fx:id="circleButton" mnemonicParsing="false" onMouseClicked="#placeCircle" text="Circle" />
-            <Button fx:id="rectangleButton" mnemonicParsing="false" onMouseClicked="#placeRectangle" text="Rectangle" />
-            <Button fx:id="triangleButton" mnemonicParsing="false" onMouseClicked="#placeTriangle" text="Triangle" />
-            <Button fx:id="selectButton" mnemonicParsing="false" onMouseClicked="#selectObject" text="Select" />
-            <ColorPicker fx:id="colorPicker" onAction="#changeColor" />
+            <Button fx:id="circleButton" mnemonicParsing="false" onMouseClicked="#circleMode" text="Circle" />
+            <Button fx:id="rectangleButton" mnemonicParsing="false" onMouseClicked="#rectangleMode" text="Rectangle" />
+            <Button fx:id="polygonButton" mnemonicParsing="false" onMouseClicked="#polygonMode" text="Polygon" />
+            <Button fx:id="selectButton" mnemonicParsing="false" onMouseClicked="#selectMode" text="Select" />
+            <ColorPicker fx:id="colorPicker" />
             <ChoiceBox fx:id="sizeSelectBox" prefWidth="150.0" />
          </children>
       </HBox>
-      <Canvas height="600" width="600" />
+      <Canvas fx:id="canvas" height="600" onMouseClicked="#placeShape" width="600" />
    </children>
 </VBox>
