@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="lagt till metoder, todos, ändrat action metoder för meny.">
+    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="borttag av onödiga shape klasser. lagt till statics och enums">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/Shapes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/Mode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/Mode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/Mode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Circle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Rectangle.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Shape.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Triangle.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +80,9 @@
       <workItem from="1667543654108" duration="360000" />
       <workItem from="1667608315384" duration="4829000" />
       <workItem from="1667613792989" duration="5010000" />
-      <workItem from="1667693022161" duration="11342000" />
+      <workItem from="1667693022161" duration="12743000" />
+      <workItem from="1667778422413" duration="61000" />
+      <workItem from="1667778498933" duration="9558000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1666206754650</created>
@@ -106,7 +104,13 @@
       <option name="presentableId" value="LOCAL−00003" />
       <updated>1667619253022</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL−00004" summary="borttag av onödiga shape klasser. lagt till statics och enums">
+      <created>1667706038933</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1667706038933</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,7 +131,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="second commit" />
     <MESSAGE value="lagt till metoder, todos, ändrat action metoder för meny." />
-    <option name="LAST_COMMIT_MESSAGE" value="lagt till metoder, todos, ändrat action metoder för meny." />
+    <MESSAGE value="borttag av onödiga shape klasser. lagt till statics och enums" />
+    <option name="LAST_COMMIT_MESSAGE" value="borttag av onödiga shape klasser. lagt till statics och enums" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -139,7 +144,7 @@
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/HelloApplication.java</url>
           <line>9</line>
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
