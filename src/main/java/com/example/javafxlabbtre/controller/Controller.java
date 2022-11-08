@@ -37,6 +37,7 @@ public class Controller implements Initializable {
     ArrayList<Shape> placedShapes = new ArrayList<>();
     private Mode currentMode = Mode.CIRCLE;
     private Size currentSize = Size.SMALL;
+    private Color currentColor = getColor();
     private final String[] SIZES = {"Small", "Medium", "Large"};
     private final double SMALL = 15;
     private final double MEDIUM = 30;
@@ -83,7 +84,11 @@ public class Controller implements Initializable {
         boolean proximity = checkProximity(mouseEvent);
         if (proximity) {
             if (currentMode == Mode.SELECT) {
-                selectObject(mouseEvent);
+                if (hasSelected()) {
+                    modifySelected();
+                } else {
+                    selectObject(mouseEvent);
+                }
             }
         } else {
             clearSelected();
@@ -114,14 +119,10 @@ public class Controller implements Initializable {
     }
 
     private void modifyShape(Shape s) {
-        Color originalColor = s.getColor();
         if (s instanceof Circle) {
             s.setSelected(true);
             gfxContext.setFill(SELECTED_COLOR);
             gfxContext.fillOval(s.getPositionX() - (((Circle)s).getRadius() / 2), s.getPositionY() - (((Circle)s).getRadius() / 2), ((Circle)s).getRadius(), ((Circle)s).getRadius());
-            while (currentMode == Mode.SELECT) {
-                if ()
-            }
         } else if (s instanceof Rectangle) {
             s.setSelected(true);
             gfxContext.setFill(SELECTED_COLOR);
@@ -134,11 +135,11 @@ public class Controller implements Initializable {
             double distX = e.getX() - s.getPositionX();
             double distY = e.getY() - s.getPositionY();
             double distance = sqrt((distX * distX) + (distY * distY));
-            if (s.getSize() == Size.SMALL && distance <= SMALL) {
+            if (s.getSize() == Size.LARGE && distance <= LARGE) {
                 return true;
             } else if (s.getSize() == Size.MEDIUM && distance <= MEDIUM) {
                 return true;
-            } else if (s.getSize() == Size.LARGE && distance <= LARGE) {
+            } else if (s.getSize() == Size.SMALL && distance <= SMALL) {
                 return true;
             }
         }
@@ -151,9 +152,18 @@ public class Controller implements Initializable {
         }
     }
 
-    private void checkForSelected() {
+    public boolean hasSelected() {
         for (Shape s : placedShapes) {
             if (s.isSelected()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private void modifySelected() {
+        for (Shape s : placedShapes) {
+            if (s.isSelected()) {
+                modifyShape(s);
                 break;
             }
         }
@@ -202,13 +212,23 @@ public class Controller implements Initializable {
     }
 
     private void paintCircle(Circle circle) {
-        gfxContext.setFill(circle.getColor());
-        gfxContext.fillOval(circle.getPositionX() - (circle.getRadius() / 2), circle.getPositionY() - (circle.getRadius() / 2), circle.getRadius(), circle.getRadius());
+        if (hasSelected()) {
+            if (circle.getColor().equals(SELECTED_COLOR)) {
+
+            }
+        } else {
+            gfxContext.setFill(circle.getColor());
+            gfxContext.fillOval(circle.getPositionX() - (circle.getRadius() / 2), circle.getPositionY() - (circle.getRadius() / 2), circle.getRadius(), circle.getRadius());
+        }
     }
 
     private void paintRectangle(Rectangle rectangle) {
-        gfxContext.setFill(rectangle.getColor());
-        gfxContext.fillRect(rectangle.getPositionX() - (rectangle.getWidth() / 2), rectangle.getPositionY() - (rectangle.getWidth() / 2), rectangle.getWidth(), rectangle.getHeight());
+        if (hasSelected()) {
+
+        } else {
+            gfxContext.setFill(rectangle.getColor());
+            gfxContext.fillRect(rectangle.getPositionX() - (rectangle.getWidth() / 2), rectangle.getPositionY() - (rectangle.getWidth() / 2), rectangle.getWidth(), rectangle.getHeight());
+        }
     }
 
 
