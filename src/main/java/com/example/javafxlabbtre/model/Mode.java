@@ -1,4 +1,4 @@
-package com.example.javafxlabbtre.Model;
+package com.example.javafxlabbtre.model;
 
 public enum Mode {
     CIRCLE, RECTANGLE, SELECT

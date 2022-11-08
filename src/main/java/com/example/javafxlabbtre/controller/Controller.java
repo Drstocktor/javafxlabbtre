@@ -1,6 +1,6 @@
 package com.example.javafxlabbtre.controller;
 
-import com.example.javafxlabbtre.Model.*;
+import com.example.javafxlabbtre.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -1,4 +1,4 @@
-package com.example.javafxlabbtre.Model;
+package com.example.javafxlabbtre.model;
 
 import javafx.scene.paint.Color;
 
