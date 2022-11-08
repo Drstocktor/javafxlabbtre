@@ -1,0 +1,101 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,15 +4,8 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="second commit">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Circle.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Shape.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Square.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Triangle.java" afterDir="false" />
++    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="finished menu layout and ready to do coding">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/HelloController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -23,6 +16,7 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="Class" />
++        <option value="Enum" />
+       </list>
+     </option>
+   </component>
+@@ -38,15 +32,16 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/talib/Downloads/src&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "ASKED_ADD_EXTERNAL_FILES": "true",
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "WebServerToolWindowFactoryState": "false",
++    "last_opened_file_path": "C:/Users/talib/Downloads/src"
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager">
+     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.example.javafxlabbtre.HelloApplication" />
+@@ -80,7 +75,7 @@
+       <workItem from="1666447911246" duration="1229000" />
+       <workItem from="1666591414910" duration="2442000" />
+       <workItem from="1666637714026" duration="86000" />
+-      <workItem from="1667543654108" duration="360000" />
++      <workItem from="1667543654108" duration="831000" />
+     </task>
+     <task id="LOCAL-00001" summary="Initial commit">
+       <created>1666206754650</created>
+@@ -96,7 +91,21 @@
+       <option name="project" value="LOCAL" />
+       <updated>1666637785611</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="finished file structrues and added files">
++      <created>1667544195478</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1667544195478</updated>
++    </task>
++    <task id="LOCAL-00004" summary="finished menu layout and ready to do coding">
++      <created>1667544291488</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1667544291488</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -116,6 +125,8 @@
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Initial commit" />
+     <MESSAGE value="second commit" />
+-    <option name="LAST_COMMIT_MESSAGE" value="second commit" />
++    <MESSAGE value="finished file structrues and added files" />
++    <MESSAGE value="finished menu layout and ready to do coding" />
++    <option name="LAST_COMMIT_MESSAGE" value="finished menu layout and ready to do coding" />
+   </component>
+ </project>
+\ No newline at end of file
