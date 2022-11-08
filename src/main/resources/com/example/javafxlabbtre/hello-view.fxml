@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -9,12 +10,11 @@
          <children>
             <Button fx:id="circleButton" mnemonicParsing="false" onMouseClicked="#circleMode" text="Circle" />
             <Button fx:id="rectangleButton" mnemonicParsing="false" onMouseClicked="#rectangleMode" text="Rectangle" />
-            <Button fx:id="ellipseButton" mnemonicParsing="false" onMouseClicked="#ellipseMode" text="Ellipse" />
             <Button fx:id="selectButton" mnemonicParsing="false" onMouseClicked="#selectMode" text="Select" />
             <ColorPicker fx:id="colorPicker" />
             <ChoiceBox fx:id="sizeSelectBox" prefWidth="150.0" />
          </children>
       </HBox>
-      <Pane fx:id="paneCanvas" prefHeight="600.0" prefWidth="600.0" />
+      <Canvas fx:id="canvas" height="560.0" onMouseClicked="#placeShape" width="600.0" />
    </children>
 </VBox>

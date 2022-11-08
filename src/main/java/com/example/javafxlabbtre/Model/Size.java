@@ -1,4 +1,4 @@
-package com.example.javafxlabbtre;
+package com.example.javafxlabbtre.Model;
 
 public enum Size {
     SMALL, MEDIUM, LARGE

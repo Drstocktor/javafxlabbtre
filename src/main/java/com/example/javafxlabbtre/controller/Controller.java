@@ -1,29 +1,28 @@
 package com.example.javafxlabbtre.controller;
 
-import com.example.javafxlabbtre.Mode;
-import com.example.javafxlabbtre.Size;
+import com.example.javafxlabbtre.Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+import static java.lang.Math.sqrt;
 
+public class Controller implements Initializable {
+    @FXML
+    private Canvas canvas;
     @FXML
     private ChoiceBox<String> sizeSelectBox;
-    @FXML
-    private Pane paneCanvas;
     @FXML
     private Button rectangleButton;
     @FXML
@@ -36,19 +35,21 @@ public class Controller implements Initializable {
     private ColorPicker colorPicker;
 
     ArrayList<Shape> placedShapes = new ArrayList<>();
-    GraphicsContext paintCanvas;
     private Mode currentMode = Mode.CIRCLE;
-    private Size currentSize = Size.MEDIUM;
+    private Size currentSize = Size.SMALL;
     private final String[] SIZES = {"Small", "Medium", "Large"};
     private final double SMALL = 15;
     private final double MEDIUM = 30;
     private final double LARGE = 60;
+    private final Color SELECTED_COLOR = Color.BLUE;
+    private GraphicsContext gfxContext;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         sizeSelectBox.getItems().addAll(SIZES);
+        sizeSelectBox.setValue("Small"); //default value i menyn
         sizeSelectBox.setOnAction(this::getSize);
-        paneCanvas.setOnMouseClicked(this::placeShape);
+        gfxContext = canvas.getGraphicsContext2D();
     }
 
     public void getSize(ActionEvent event) {
@@ -62,24 +63,16 @@ public class Controller implements Initializable {
         }
     }
 
-    public void rectangleMode(MouseEvent mouseEvent) {
+    public void rectangleMode() {
         currentMode = Mode.RECTANGLE;
     }
 
-    public void ellipseMode(MouseEvent mouseEvent) {
-        currentMode = Mode.ELLIPSE;
-    }
-
-    public void circleMode(MouseEvent mouseEvent) {
+    public void circleMode() {
         currentMode = Mode.CIRCLE;
     }
 
-    public void selectMode(MouseEvent mouseEvent) {
+    public void selectMode() {
         currentMode = Mode.SELECT;
-    }
-
-    public Color changeColor(ActionEvent actionEvent) {
-        return colorPicker.getValue();
     }
 
     public Color getColor() {
@@ -87,74 +80,136 @@ public class Controller implements Initializable {
     }
 
     public void placeShape(MouseEvent mouseEvent) {
-        switch (currentMode) {
-            case CIRCLE -> createCircle(mouseEvent);
-            case ELLIPSE -> createEllipse(mouseEvent);
-            case RECTANGLE -> createRectangle(mouseEvent);
-            case SELECT -> selectObject(mouseEvent);
+        boolean proximity = checkProximity(mouseEvent);
+        if (proximity) {
+            if (currentMode == Mode.SELECT) {
+                selectObject(mouseEvent);
+            }
+        } else {
+            clearSelected();
+            switch (currentMode) {
+                case CIRCLE -> createCircle(mouseEvent);
+                case RECTANGLE -> createRectangle(mouseEvent);
+                case SELECT -> selectObject(mouseEvent);
+            }
         }
     }
 
     private void selectObject(MouseEvent e) {
-
-    }
-
-
-    private void createRectangle(MouseEvent e) {
-        switch (currentSize) {
-            case SMALL -> {
-                Rectangle rectangle = new Rectangle(e.getX() - SMALL, e.getY() - SMALL, SMALL, SMALL);
-                rectangle.setFill(getColor());
-                paneCanvas.getChildren().add(rectangle);
-            }
-            case MEDIUM -> {
-                Rectangle rectangle = new Rectangle(e.getX() - MEDIUM, e.getY() - MEDIUM, MEDIUM, MEDIUM);
-                rectangle.setFill(getColor());
-                paneCanvas.getChildren().add(rectangle);
-            }
-            case LARGE -> {
-                Rectangle rectangle = new Rectangle(e.getX() - LARGE, e.getY() - LARGE, LARGE, LARGE);
-                rectangle.setFill(getColor());
-                paneCanvas.getChildren().add(rectangle);
+        for (Shape s : placedShapes) {
+            double distX = e.getX() - s.getPositionX();
+            double distY = e.getY() - s.getPositionY();
+            double distance = sqrt((distX * distX) + (distY * distY));
+            if (s.getSize() == Size.LARGE && distance <= LARGE) {
+                modifyShape(s);
+                break;
+            } else if (s.getSize() == Size.MEDIUM && distance <= MEDIUM) {
+                modifyShape(s);
+                break;
+            } else if (s.getSize() == Size.SMALL && distance <= SMALL) {
+                modifyShape(s);
+                break;
             }
         }
     }
 
-    private void createEllipse(MouseEvent e) {
+    private void modifyShape(Shape s) {
+        Color originalColor = s.getColor();
+        if (s instanceof Circle) {
+            s.setSelected(true);
+            gfxContext.setFill(SELECTED_COLOR);
+            gfxContext.fillOval(s.getPositionX() - (((Circle)s).getRadius() / 2), s.getPositionY() - (((Circle)s).getRadius() / 2), ((Circle)s).getRadius(), ((Circle)s).getRadius());
+            while (currentMode == Mode.SELECT) {
+                if ()
+            }
+        } else if (s instanceof Rectangle) {
+            s.setSelected(true);
+            gfxContext.setFill(SELECTED_COLOR);
+            gfxContext.fillRect(s.getPositionX() - (((Rectangle)s).getWidth() / 2), s.getPositionY() - (((Rectangle)s).getWidth() / 2), ((Rectangle)s).getWidth(), ((Rectangle)s).getHeight());
+        }
+    }
+
+    private boolean checkProximity(MouseEvent e) {
+        for (Shape s : placedShapes) {
+            double distX = e.getX() - s.getPositionX();
+            double distY = e.getY() - s.getPositionY();
+            double distance = sqrt((distX * distX) + (distY * distY));
+            if (s.getSize() == Size.SMALL && distance <= SMALL) {
+                return true;
+            } else if (s.getSize() == Size.MEDIUM && distance <= MEDIUM) {
+                return true;
+            } else if (s.getSize() == Size.LARGE && distance <= LARGE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void clearSelected() {
+        for (Shape s : placedShapes) {
+            s.setSelected(false);
+        }
+    }
+
+    private void checkForSelected() {
+        for (Shape s : placedShapes) {
+            if (s.isSelected()) {
+                break;
+            }
+        }
+    }
+
+    private void createRectangle(MouseEvent e) {
+        // Constructor: double positionX, double positionY, Color color, Size size, double base, double height
         switch (currentSize) {
             case SMALL -> {
-                Polygon polygon = new Polygon();
-                polygon.setFill(getColor());
-                paneCanvas.getChildren().add(polygon);
+                Rectangle rectangle = new Rectangle(e.getX(), e.getY(), getColor(), currentSize, SMALL, SMALL);
+                paintRectangle(rectangle);
+                placedShapes.add(rectangle);
             }
             case MEDIUM -> {
-                Ellipse ellipse = new Ellipse(e.getX(), e.getY(), MEDIUM, MEDIUM);
-                ellipse.setFill(getColor());
-                paneCanvas.getChildren().add(ellipse);
+                Rectangle rectangle = new Rectangle(e.getX(), e.getY(), getColor(), currentSize, MEDIUM, MEDIUM);
+                paintRectangle(rectangle);
+                placedShapes.add(rectangle);
             }
             case LARGE -> {
-                Ellipse ellipse = new Ellipse(e.getX(), e.getY(), LARGE, LARGE);
-                ellipse.setFill(getColor());
-                paneCanvas.getChildren().add(ellipse);
+                Rectangle rectangle = new Rectangle(e.getX(), e.getY(), getColor(), currentSize, LARGE, LARGE);
+                paintRectangle(rectangle);
+                placedShapes.add(rectangle);
             }
         }
     }
 
     private void createCircle(MouseEvent e) {
+        // Constructor: double positionX, double positionY, Color color, Size size, double radius
         switch (currentSize) {
             case SMALL -> {
-                Circle circle = new Circle(e.getX(), e.getY(), SMALL, getColor());
-                paneCanvas.getChildren().add(circle);
+                Circle circle = new Circle(e.getX(), e.getY(), getColor(), currentSize, SMALL);
+                paintCircle(circle);
+                placedShapes.add(circle);
             }
             case MEDIUM -> {
-                Circle circle = new Circle(e.getX(), e.getY(), MEDIUM, getColor());
-                paneCanvas.getChildren().add(circle);
+                Circle circle = new Circle(e.getX(), e.getY(), getColor(), currentSize, MEDIUM);
+                paintCircle(circle);
+                placedShapes.add(circle);
             }
             case LARGE -> {
-                Circle circle = new Circle(e.getX(), e.getY(), LARGE, getColor());
-                paneCanvas.getChildren().add(circle);
+                Circle circle = new Circle(e.getX(), e.getY(), getColor(), currentSize, LARGE);
+                paintCircle(circle);
+                placedShapes.add(circle);
             }
         }
     }
+
+    private void paintCircle(Circle circle) {
+        gfxContext.setFill(circle.getColor());
+        gfxContext.fillOval(circle.getPositionX() - (circle.getRadius() / 2), circle.getPositionY() - (circle.getRadius() / 2), circle.getRadius(), circle.getRadius());
+    }
+
+    private void paintRectangle(Rectangle rectangle) {
+        gfxContext.setFill(rectangle.getColor());
+        gfxContext.fillRect(rectangle.getPositionX() - (rectangle.getWidth() / 2), rectangle.getPositionY() - (rectangle.getWidth() / 2), rectangle.getWidth(), rectangle.getHeight());
+    }
+
 
 }
