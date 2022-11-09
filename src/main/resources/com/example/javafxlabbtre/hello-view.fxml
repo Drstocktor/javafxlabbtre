@@ -12,7 +12,10 @@
             <Button fx:id="rectangleButton" mnemonicParsing="false" onMouseClicked="#rectangleMode" text="Rectangle" />
             <Button fx:id="selectButton" mnemonicParsing="false" onMouseClicked="#selectMode" text="Select" />
             <ColorPicker fx:id="colorPicker" />
-            <ChoiceBox fx:id="sizeSelectBox" prefWidth="150.0" />
+            <ChoiceBox fx:id="sizeSelectBox" prefWidth="100.0" />
+            <Button fx:id="applyButton" mnemonicParsing="false" onAction="#applyChange" text="Apply" />
+            <Button fx:id="undoButton" mnemonicParsing="false" onAction="#undoChange" text="Undo" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveFile" text="Save" />
          </children>
       </HBox>
       <Canvas fx:id="canvas" height="560.0" onMouseClicked="#placeShape" width="600.0" />

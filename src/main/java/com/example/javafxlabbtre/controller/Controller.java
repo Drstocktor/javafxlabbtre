@@ -19,6 +19,9 @@ import java.util.ResourceBundle;
 import static java.lang.Math.sqrt;
 
 public class Controller implements Initializable {
+    public Button applyButton;
+    public Button saveButton;
+    public Button undoButton;
     @FXML
     private Canvas canvas;
     @FXML
@@ -37,7 +40,7 @@ public class Controller implements Initializable {
     ArrayList<Shape> placedShapes = new ArrayList<>();
     private Mode currentMode = Mode.CIRCLE;
     private Size currentSize = Size.SMALL;
-    private Color currentColor = getColor();
+    private Color originalColor = Color.WHITE;
     private final String[] SIZES = {"Small", "Medium", "Large"};
     private final double SMALL = 15;
     private final double MEDIUM = 30;
@@ -51,6 +54,8 @@ public class Controller implements Initializable {
         sizeSelectBox.setValue("Small"); //default value i menyn
         sizeSelectBox.setOnAction(this::getSize);
         gfxContext = canvas.getGraphicsContext2D();
+        gfxContext.setFill(Color.WHITE);
+        gfxContext.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
     }
 
     public void getSize(ActionEvent event) {
@@ -66,10 +71,12 @@ public class Controller implements Initializable {
 
     public void rectangleMode() {
         currentMode = Mode.RECTANGLE;
+        clearSelected();
     }
 
     public void circleMode() {
         currentMode = Mode.CIRCLE;
+        clearSelected();
     }
 
     public void selectMode() {
@@ -119,18 +126,21 @@ public class Controller implements Initializable {
     }
 
     private void modifyShape(Shape s) {
+        originalColor = s.getColor();
         if (s instanceof Circle) {
             s.setSelected(true);
             gfxContext.setFill(SELECTED_COLOR);
-            gfxContext.fillOval(s.getPositionX() - (((Circle)s).getRadius() / 2), s.getPositionY() - (((Circle)s).getRadius() / 2), ((Circle)s).getRadius(), ((Circle)s).getRadius());
+            gfxContext.fillOval(s.getPositionX() - (((Circle) s).getRadius() / 2), s.getPositionY() - (((Circle) s).getRadius() / 2), ((Circle) s).getRadius(), ((Circle) s).getRadius());
         } else if (s instanceof Rectangle) {
             s.setSelected(true);
             gfxContext.setFill(SELECTED_COLOR);
-            gfxContext.fillRect(s.getPositionX() - (((Rectangle)s).getWidth() / 2), s.getPositionY() - (((Rectangle)s).getWidth() / 2), ((Rectangle)s).getWidth(), ((Rectangle)s).getHeight());
+            gfxContext.fillRect(s.getPositionX() - (((Rectangle) s).getWidth() / 2), s.getPositionY() - (((Rectangle) s).getWidth() / 2), ((Rectangle) s).getWidth(), ((Rectangle) s).getHeight());
         }
     }
 
     private boolean checkProximity(MouseEvent e) {
+        //TODO collision detection för rektangel?
+
         for (Shape s : placedShapes) {
             double distX = e.getX() - s.getPositionX();
             double distY = e.getY() - s.getPositionY();
@@ -160,6 +170,7 @@ public class Controller implements Initializable {
         }
         return false;
     }
+
     private void modifySelected() {
         for (Shape s : placedShapes) {
             if (s.isSelected()) {
@@ -211,25 +222,128 @@ public class Controller implements Initializable {
         }
     }
 
-    private void paintCircle(Circle circle) {
-        if (hasSelected()) {
-            if (circle.getColor().equals(SELECTED_COLOR)) {
-
+    private void setNewSize(Shape s) {
+        if (s instanceof Circle) {
+            switch (currentSize) {
+                case SMALL -> ((Circle) s).setRadius(SMALL);
+                case MEDIUM -> ((Circle) s).setRadius(MEDIUM);
+                case LARGE -> ((Circle) s).setRadius(LARGE);
             }
         } else {
-            gfxContext.setFill(circle.getColor());
-            gfxContext.fillOval(circle.getPositionX() - (circle.getRadius() / 2), circle.getPositionY() - (circle.getRadius() / 2), circle.getRadius(), circle.getRadius());
+            switch (currentSize) {
+                case SMALL ->{
+                    ((Rectangle) s).setWidth(SMALL);
+                    ((Rectangle) s).setHeight(SMALL);
+                }
+                case MEDIUM -> {
+                    ((Rectangle) s).setWidth(MEDIUM);
+                    ((Rectangle) s).setHeight(MEDIUM);
+                }
+                case LARGE -> {
+                    ((Rectangle) s).setWidth(LARGE);
+                    ((Rectangle) s).setHeight(LARGE);
+                }
+            }
         }
+    }
+
+    private void paintCircle(Circle circle) {
+        gfxContext.setFill(circle.getColor());
+        gfxContext.fillOval(circle.getPositionX() - (circle.getRadius() / 2), circle.getPositionY() - (circle.getRadius() / 2), circle.getRadius(), circle.getRadius());
     }
 
     private void paintRectangle(Rectangle rectangle) {
-        if (hasSelected()) {
-
-        } else {
-            gfxContext.setFill(rectangle.getColor());
-            gfxContext.fillRect(rectangle.getPositionX() - (rectangle.getWidth() / 2), rectangle.getPositionY() - (rectangle.getWidth() / 2), rectangle.getWidth(), rectangle.getHeight());
-        }
+        gfxContext.setFill(rectangle.getColor());
+        gfxContext.fillRect(rectangle.getPositionX() - (rectangle.getWidth() / 2), rectangle.getPositionY() - (rectangle.getWidth() / 2), rectangle.getWidth(), rectangle.getHeight());
     }
 
 
+    public void applyChange(ActionEvent actionEvent) {
+        Color newColor = getColor();
+        Size originalSize;
+
+        for (Shape s : placedShapes) {
+            if (s.isSelected()) {
+                if (!newColor.equals(SELECTED_COLOR)) {
+                    s.setColor(newColor);
+                    originalSize = s.getSize();
+                    s.setSize(currentSize);
+                    setNewSize(s);
+                    if (isSmaller(originalSize, s)) {
+                        eraseShape(originalSize, s);
+                    }
+                    clearSelected();
+                    if (s instanceof Circle) {
+                        paintCircle((Circle) s);
+                    } else {
+                        paintRectangle((Rectangle) s);
+                    }
+                } else {
+                    s.setColor(originalColor);
+                    s.setSize(currentSize);
+                    originalSize = s.getSize();
+                    setNewSize(s);
+                    if (isSmaller(originalSize, s)) {
+                        eraseShape(originalSize, s);
+                    }
+                    clearSelected();
+                    if (s instanceof Circle) {
+                        paintCircle((Circle) s);
+                    } else {
+                        paintRectangle((Rectangle) s);
+                    }
+                }
+            }
+        }
+    }
+
+    private void eraseShape(Size originalSize, Shape s) {
+        // TODO varför blir inte cirklarna färgade ordentligt??
+        switch (originalSize) {
+            case SMALL -> {}
+            case MEDIUM -> {
+                if (s instanceof Circle) {
+                    gfxContext.setFill(Color.WHITE);
+                    gfxContext.fillOval(s.getPositionX() - (MEDIUM / 2), s.getPositionY() - (MEDIUM / 2), MEDIUM, MEDIUM);
+                } else {
+                    gfxContext.setFill(Color.WHITE);
+                    gfxContext.fillRect(s.getPositionX() - (MEDIUM / 2), s.getPositionY() - (MEDIUM / 2), MEDIUM, MEDIUM);
+                }
+            }
+            case LARGE -> {
+                if (s instanceof Circle) {
+                    gfxContext.setFill(Color.WHITE);
+                    gfxContext.fillOval(s.getPositionX() - (LARGE / 2), s.getPositionY() - (LARGE / 2), LARGE, LARGE);
+                } else {
+                    gfxContext.setFill(Color.WHITE);
+                    gfxContext.fillRect(s.getPositionX() - (LARGE / 2), s.getPositionY() - (LARGE / 2), LARGE, LARGE);
+                }
+            }
+        }
+    }
+
+    private boolean isSmaller(Size originalSize, Shape s) {
+        switch (originalSize) {
+            case SMALL -> {}
+            case MEDIUM -> {
+                if (s.getSize().equals(Size.SMALL)) {
+                    return true;
+                }
+            }
+            case LARGE -> {
+                if (s.getSize().equals(Size.SMALL) || s.getSize().equals(Size.MEDIUM)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void undoChange(ActionEvent actionEvent) {
+        // TODO code undo. double arraylists, or canvas snapshot??
+    }
+
+    public void saveFile(ActionEvent actionEvent) {
+        // todo code save file
+    }
 }
