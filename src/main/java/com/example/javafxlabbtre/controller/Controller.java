@@ -37,7 +37,8 @@ public class Controller implements Initializable {
     @FXML
     private ColorPicker colorPicker;
 
-    ArrayList<Shape> placedShapes = new ArrayList<>();
+    private ArrayList<Shape> placedShapes = new ArrayList<>();
+    private ArrayList<Shape> oldPlacedShapes = new ArrayList<>();
     private Mode currentMode = Mode.CIRCLE;
     private Size currentSize = Size.SMALL;
     private Color originalColor = Color.WHITE;
@@ -76,11 +77,13 @@ public class Controller implements Initializable {
     public void rectangleMode() {
         currentMode = Mode.RECTANGLE;
         clearSelected();
+        repaintCanvas();
     }
 
     public void circleMode() {
         currentMode = Mode.CIRCLE;
         clearSelected();
+        repaintCanvas();
     }
 
     public void selectMode() {
@@ -103,6 +106,7 @@ public class Controller implements Initializable {
             }
         } else {
             clearSelected();
+            saveBeforeEdit();
             switch (currentMode) {
                 case CIRCLE -> createCircle(mouseEvent);
                 case RECTANGLE -> createRectangle(mouseEvent);
@@ -133,6 +137,7 @@ public class Controller implements Initializable {
     }
 
     private void modifyShape(Shape s) {
+        saveBeforeEdit();
         if (s instanceof Circle) {
             s.setSelected(true);
             gfxContext.setFill(SELECTED_COLOR);
@@ -164,10 +169,6 @@ public class Controller implements Initializable {
 
     private void clearSelected() {
         for (Shape s : placedShapes) {
-            if(s.getColor().equals(SELECTED_COLOR)) {
-                s.setColor(originalColor);
-                repaintCanvas();
-            }
             s.setSelected(false);
         }
     }
@@ -269,16 +270,17 @@ public class Controller implements Initializable {
 
     public void applyChange(ActionEvent actionEvent) {
         Color newColor = getColor();
-
         for (Shape s : placedShapes) {
             if (s.isSelected()) {
                 if (!newColor.equals(SELECTED_COLOR)) {
+                    saveBeforeEdit();
                     s.setColor(newColor);
                     s.setSize(currentSize);
                     setNewSize(s);
                     clearSelected();
                     repaintCanvas();
                 } else {
+                    saveBeforeEdit();
                     s.setColor(originalColor);
                     s.setSize(currentSize);
                     setNewSize(s);
@@ -310,7 +312,6 @@ public class Controller implements Initializable {
     }
 
     private void eraseShape(Shape s) {
-        // TODO varför blir inte cirklarna färgade ordentligt??
         switch (s.getSize()) {
             case SMALL -> {}
             case MEDIUM -> {
@@ -352,11 +353,14 @@ public class Controller implements Initializable {
     }
 
     public void undoChange(ActionEvent actionEvent) {
-        // TODO code undo. double arraylists, or canvas snapshot??
+        placedShapes.clear();
+        placedShapes.addAll(oldPlacedShapes);
+        clearSelected();
+        repaintCanvas();
     }
 
     public void saveBeforeEdit() {
-        // TODO spara listan/ canvas innan förändring
+        oldPlacedShapes.addAll(placedShapes);
     }
 
     public void saveFile(ActionEvent actionEvent) {

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="selection &amp; recolor working, resizing almost.">
+    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="fixing bugs and undo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" afterDir="false" />
     </list>
@@ -86,7 +86,7 @@
       <workItem from="1667805601658" duration="2409000" />
       <workItem from="1667856003898" duration="35674000" />
       <workItem from="1667988195920" duration="1047000" />
-      <workItem from="1668030121740" duration="6364000" />
+      <workItem from="1668030121740" duration="8650000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1666206754650</created>
@@ -149,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667964265380</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fixing bugs and undo">
+      <created>1668039673194</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1668039673194</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +180,8 @@
     <MESSAGE value="borttag av onödiga shape klasser. lagt till statics och enums" />
     <MESSAGE value="placing, selecting &amp; proximity done" />
     <MESSAGE value="selection &amp; recolor working, resizing almost." />
-    <option name="LAST_COMMIT_MESSAGE" value="selection &amp; recolor working, resizing almost." />
+    <MESSAGE value="fixing bugs and undo" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixing bugs and undo" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -189,12 +197,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>94</line>
+          <line>97</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
+          <line>118</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>64</line>
+          <line>65</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="getSize">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -203,7 +216,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>146</line>
+          <line>151</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="checkProximity">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
