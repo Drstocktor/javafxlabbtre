@@ -3,6 +3,7 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxlabbtre.controller.Controller">
    <children>
@@ -11,9 +12,12 @@
             <Button fx:id="circleButton" mnemonicParsing="false" onMouseClicked="#circleMode" text="Circle" />
             <Button fx:id="rectangleButton" mnemonicParsing="false" onMouseClicked="#rectangleMode" text="Rectangle" />
             <Button fx:id="selectButton" mnemonicParsing="false" onMouseClicked="#selectMode" text="Select" />
-            <ColorPicker fx:id="colorPicker" />
+            <ColorPicker fx:id="colorPicker">
+               <value>
+                  <Color />
+               </value></ColorPicker>
             <ChoiceBox fx:id="sizeSelectBox" prefWidth="100.0" />
-            <Button fx:id="applyButton" mnemonicParsing="false" onAction="#applyChange" text="Apply" />
+            <Button fx:id="applyButton" mnemonicParsing="false" onAction="#applyChange" text="Apply Change" visible="false" />
             <Button fx:id="undoButton" mnemonicParsing="false" onAction="#undoChange" text="Undo" />
             <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveFile" text="Save" />
          </children>

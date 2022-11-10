@@ -1,6 +1,8 @@
 package com.example.javafxlabbtre.controller;
 
 import com.example.javafxlabbtre.model.*;
+import com.example.javafxlabbtre.model.Rectangle;
+import com.example.javafxlabbtre.model.Shape;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +14,11 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+import javax.swing.*;
+import java.awt.*;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -37,6 +44,7 @@ public class Controller implements Initializable {
     @FXML
     private ColorPicker colorPicker;
 
+    private JFrame saveFrame = new JFrame();
     private ArrayList<Shape> placedShapes = new ArrayList<>();
     private ArrayList<Shape> oldPlacedShapes = new ArrayList<>();
     private Mode currentMode = Mode.CIRCLE;
@@ -51,6 +59,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupSaveFrame();
         sizeSelectBox.getItems().addAll(SIZES);
         sizeSelectBox.setValue("Small"); //default value i menyn
         sizeSelectBox.setOnAction(this::getSize);
@@ -61,6 +70,10 @@ public class Controller implements Initializable {
         // TODO lägg till animation
     }
 
+    private void setupSaveFrame() {
+        saveFrame.setVisible(false);
+        saveFrame.setSize(400, 400);
+    }
 
 
     public void getSize(ActionEvent event) {
@@ -106,7 +119,6 @@ public class Controller implements Initializable {
             }
         } else {
             clearSelected();
-            saveBeforeEdit();
             switch (currentMode) {
                 case CIRCLE -> createCircle(mouseEvent);
                 case RECTANGLE -> createRectangle(mouseEvent);
@@ -116,6 +128,7 @@ public class Controller implements Initializable {
     }
 
     private void selectObject(MouseEvent e) {
+        //TODO optimise click detection???
         for (Shape s : placedShapes) {
             double distX = e.getX() - s.getPositionX();
             double distY = e.getY() - s.getPositionY();
@@ -138,6 +151,7 @@ public class Controller implements Initializable {
 
     private void modifyShape(Shape s) {
         saveBeforeEdit();
+        applyButton.setVisible(true);
         if (s instanceof Circle) {
             s.setSelected(true);
             gfxContext.setFill(SELECTED_COLOR);
@@ -170,6 +184,7 @@ public class Controller implements Initializable {
     private void clearSelected() {
         for (Shape s : placedShapes) {
             s.setSelected(false);
+            applyButton.setVisible(false);
         }
     }
 
@@ -273,14 +288,12 @@ public class Controller implements Initializable {
         for (Shape s : placedShapes) {
             if (s.isSelected()) {
                 if (!newColor.equals(SELECTED_COLOR)) {
-                    saveBeforeEdit();
                     s.setColor(newColor);
                     s.setSize(currentSize);
                     setNewSize(s);
                     clearSelected();
                     repaintCanvas();
                 } else {
-                    saveBeforeEdit();
                     s.setColor(originalColor);
                     s.setSize(currentSize);
                     setNewSize(s);
@@ -303,55 +316,6 @@ public class Controller implements Initializable {
         }
     }
 
-    private Shape createCopy(Shape original) {
-        if (original instanceof Circle) {
-            return new Circle(original.getPositionX(), original.getPositionY(), original.getColor(), original.getSize(), ((Circle) original).getRadius());
-        } else {
-            return new Rectangle(original.getPositionX(), original.getPositionY(), original.getColor(), original.getSize(), ((Rectangle)original).getWidth(), ((Rectangle)original).getHeight());
-        }
-    }
-
-    private void eraseShape(Shape s) {
-        switch (s.getSize()) {
-            case SMALL -> {}
-            case MEDIUM -> {
-                if (s instanceof Circle) {
-                    gfxContext.setFill(Color.WHITE);
-                    gfxContext.fillOval(s.getPositionX() - (((Circle) s).getRadius() / 2), s.getPositionY() - (((Circle) s).getRadius() / 2), ((Circle) s).getRadius(), ((Circle) s).getRadius());
-                } else {
-                    gfxContext.setFill(Color.WHITE);
-                    gfxContext.fillRect(s.getPositionX() - (MEDIUM / 2), s.getPositionY() - (MEDIUM / 2), MEDIUM, MEDIUM);
-                }
-            }
-            case LARGE -> {
-                if (s instanceof Circle) {
-                    gfxContext.setFill(Color.WHITE);
-                    gfxContext.fillOval(s.getPositionX() - (((Circle) s).getRadius() / 2), s.getPositionY() - (((Circle) s).getRadius() / 2), ((Circle) s).getRadius(), ((Circle) s).getRadius());
-                } else {
-                    gfxContext.setFill(Color.WHITE);
-                    gfxContext.fillRect(s.getPositionX() - (LARGE / 2), s.getPositionY() - (LARGE / 2), LARGE, LARGE);
-                }
-            }
-        }
-    }
-
-    private boolean isSmaller(Size originalSize, Shape s) {
-        switch (originalSize) {
-            case SMALL -> {}
-            case MEDIUM -> {
-                if (s.getSize().equals(Size.SMALL)) {
-                    return true;
-                }
-            }
-            case LARGE -> {
-                if (s.getSize().equals(Size.SMALL) || s.getSize().equals(Size.MEDIUM)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public void undoChange(ActionEvent actionEvent) {
         placedShapes.clear();
         placedShapes.addAll(oldPlacedShapes);
@@ -360,10 +324,29 @@ public class Controller implements Initializable {
     }
 
     public void saveBeforeEdit() {
+        oldPlacedShapes.clear();
         oldPlacedShapes.addAll(placedShapes);
     }
 
     public void saveFile(ActionEvent actionEvent) {
         // todo code save file
+        String fileName = "";
+        String fileDir = "";
+
+        FileDialog fd = new FileDialog(saveFrame, "Save", FileDialog.SAVE);
+        fd.setMultipleMode(true);
+        fd.setVisible(true);
+
+        if (fd.getFile()!=null) {
+            fileName = fd.getFile();
+            fileDir = fd.getDirectory();
+        }
+
+        try {
+            FileWriter writer = new FileWriter(fileDir);
+        } catch (Exception e) {
+
+        }
+
     }
 }
