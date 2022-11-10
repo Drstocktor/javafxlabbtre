@@ -56,7 +56,11 @@ public class Controller implements Initializable {
         gfxContext = canvas.getGraphicsContext2D();
         gfxContext.setFill(Color.WHITE);
         gfxContext.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
+
+        // TODO lägg till animation
     }
+
+
 
     public void getSize(ActionEvent event) {
         String tempCurrentSize = sizeSelectBox.getValue();
@@ -113,12 +117,15 @@ public class Controller implements Initializable {
             double distY = e.getY() - s.getPositionY();
             double distance = sqrt((distX * distX) + (distY * distY));
             if (s.getSize() == Size.LARGE && distance <= LARGE) {
+                originalColor = s.getColor();
                 modifyShape(s);
                 break;
             } else if (s.getSize() == Size.MEDIUM && distance <= MEDIUM) {
+                originalColor = s.getColor();
                 modifyShape(s);
                 break;
             } else if (s.getSize() == Size.SMALL && distance <= SMALL) {
+                originalColor = s.getColor();
                 modifyShape(s);
                 break;
             }
@@ -126,7 +133,6 @@ public class Controller implements Initializable {
     }
 
     private void modifyShape(Shape s) {
-        originalColor = s.getColor();
         if (s instanceof Circle) {
             s.setSelected(true);
             gfxContext.setFill(SELECTED_COLOR);
@@ -158,6 +164,10 @@ public class Controller implements Initializable {
 
     private void clearSelected() {
         for (Shape s : placedShapes) {
+            if(s.getColor().equals(SELECTED_COLOR)) {
+                s.setColor(originalColor);
+                repaintCanvas();
+            }
             s.setSelected(false);
         }
     }
@@ -257,54 +267,56 @@ public class Controller implements Initializable {
         gfxContext.fillRect(rectangle.getPositionX() - (rectangle.getWidth() / 2), rectangle.getPositionY() - (rectangle.getWidth() / 2), rectangle.getWidth(), rectangle.getHeight());
     }
 
-
     public void applyChange(ActionEvent actionEvent) {
         Color newColor = getColor();
-        Size originalSize;
 
         for (Shape s : placedShapes) {
             if (s.isSelected()) {
                 if (!newColor.equals(SELECTED_COLOR)) {
                     s.setColor(newColor);
-                    originalSize = s.getSize();
                     s.setSize(currentSize);
                     setNewSize(s);
-                    if (isSmaller(originalSize, s)) {
-                        eraseShape(originalSize, s);
-                    }
                     clearSelected();
-                    if (s instanceof Circle) {
-                        paintCircle((Circle) s);
-                    } else {
-                        paintRectangle((Rectangle) s);
-                    }
+                    repaintCanvas();
                 } else {
                     s.setColor(originalColor);
                     s.setSize(currentSize);
-                    originalSize = s.getSize();
                     setNewSize(s);
-                    if (isSmaller(originalSize, s)) {
-                        eraseShape(originalSize, s);
-                    }
                     clearSelected();
-                    if (s instanceof Circle) {
-                        paintCircle((Circle) s);
-                    } else {
-                        paintRectangle((Rectangle) s);
-                    }
+                    repaintCanvas();
                 }
             }
         }
     }
 
-    private void eraseShape(Size originalSize, Shape s) {
+    private void repaintCanvas() {
+        gfxContext.setFill(Color.WHITE);
+        gfxContext.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
+        for (Shape s : placedShapes) {
+            if (s instanceof Circle) {
+                paintCircle((Circle) s);
+            } else {
+                paintRectangle((Rectangle) s);
+            }
+        }
+    }
+
+    private Shape createCopy(Shape original) {
+        if (original instanceof Circle) {
+            return new Circle(original.getPositionX(), original.getPositionY(), original.getColor(), original.getSize(), ((Circle) original).getRadius());
+        } else {
+            return new Rectangle(original.getPositionX(), original.getPositionY(), original.getColor(), original.getSize(), ((Rectangle)original).getWidth(), ((Rectangle)original).getHeight());
+        }
+    }
+
+    private void eraseShape(Shape s) {
         // TODO varför blir inte cirklarna färgade ordentligt??
-        switch (originalSize) {
+        switch (s.getSize()) {
             case SMALL -> {}
             case MEDIUM -> {
                 if (s instanceof Circle) {
                     gfxContext.setFill(Color.WHITE);
-                    gfxContext.fillOval(s.getPositionX() - (MEDIUM / 2), s.getPositionY() - (MEDIUM / 2), MEDIUM, MEDIUM);
+                    gfxContext.fillOval(s.getPositionX() - (((Circle) s).getRadius() / 2), s.getPositionY() - (((Circle) s).getRadius() / 2), ((Circle) s).getRadius(), ((Circle) s).getRadius());
                 } else {
                     gfxContext.setFill(Color.WHITE);
                     gfxContext.fillRect(s.getPositionX() - (MEDIUM / 2), s.getPositionY() - (MEDIUM / 2), MEDIUM, MEDIUM);
@@ -313,7 +325,7 @@ public class Controller implements Initializable {
             case LARGE -> {
                 if (s instanceof Circle) {
                     gfxContext.setFill(Color.WHITE);
-                    gfxContext.fillOval(s.getPositionX() - (LARGE / 2), s.getPositionY() - (LARGE / 2), LARGE, LARGE);
+                    gfxContext.fillOval(s.getPositionX() - (((Circle) s).getRadius() / 2), s.getPositionY() - (((Circle) s).getRadius() / 2), ((Circle) s).getRadius(), ((Circle) s).getRadius());
                 } else {
                     gfxContext.setFill(Color.WHITE);
                     gfxContext.fillRect(s.getPositionX() - (LARGE / 2), s.getPositionY() - (LARGE / 2), LARGE, LARGE);
@@ -341,6 +353,10 @@ public class Controller implements Initializable {
 
     public void undoChange(ActionEvent actionEvent) {
         // TODO code undo. double arraylists, or canvas snapshot??
+    }
+
+    public void saveBeforeEdit() {
+        // TODO spara listan/ canvas innan förändring
     }
 
     public void saveFile(ActionEvent actionEvent) {

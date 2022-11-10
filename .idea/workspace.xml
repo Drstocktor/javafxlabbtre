@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="placing, selecting &amp; proximity done">
+    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="selection &amp; recolor working, resizing almost.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/javafxlabbtre/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +40,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/talib/Downloads/src",
+    "last_opened_file_path": "C:/Users/talib/Documents/laborationtre-master",
     "settings.editor.selected.configurable": "editing.templates"
   }
 }]]></component>
@@ -85,7 +84,9 @@
       <workItem from="1667778422413" duration="61000" />
       <workItem from="1667778498933" duration="9558000" />
       <workItem from="1667805601658" duration="2409000" />
-      <workItem from="1667856003898" duration="34068000" />
+      <workItem from="1667856003898" duration="35674000" />
+      <workItem from="1667988195920" duration="1047000" />
+      <workItem from="1668030121740" duration="6364000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1666206754650</created>
@@ -141,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667891820770</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="selection &amp; recolor working, resizing almost.">
+      <created>1667964265380</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667964265380</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,7 +172,8 @@
     <MESSAGE value="lagt till metoder, todos, ändrat action metoder för meny." />
     <MESSAGE value="borttag av onödiga shape klasser. lagt till statics och enums" />
     <MESSAGE value="placing, selecting &amp; proximity done" />
-    <option name="LAST_COMMIT_MESSAGE" value="placing, selecting &amp; proximity done" />
+    <MESSAGE value="selection &amp; recolor working, resizing almost." />
+    <option name="LAST_COMMIT_MESSAGE" value="selection &amp; recolor working, resizing almost." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -180,17 +189,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>90</line>
+          <line>94</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>60</line>
+          <line>64</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="getSize">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
+          <line>146</line>
+          <properties class="com.example.javafxlabbtre.controller.Controller" method="checkProximity">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
