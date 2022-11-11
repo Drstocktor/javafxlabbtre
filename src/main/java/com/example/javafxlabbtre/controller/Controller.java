@@ -4,7 +4,6 @@ import com.example.javafxlabbtre.model.*;
 import com.example.javafxlabbtre.model.Rectangle;
 import com.example.javafxlabbtre.model.Shape;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,8 +16,8 @@ import javafx.scene.paint.Color;
 import javax.swing.*;
 import java.awt.*;
 
-import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -29,26 +28,18 @@ public class Controller implements Initializable {
     public Button applyButton;
     public Button saveButton;
     public Button undoButton;
-    @FXML
-    private Canvas canvas;
-    @FXML
-    private ChoiceBox<String> sizeSelectBox;
-    @FXML
-    private Button rectangleButton;
-    @FXML
-    private Button circleButton;
-    @FXML
-    private Button ellipseButton;
-    @FXML
-    private Button selectButton;
-    @FXML
-    private ColorPicker colorPicker;
+    public Canvas canvas;
+    public ChoiceBox<String> sizeSelectBox;
+    public Button rectangleButton;
+    public Button circleButton;
+    public Button selectButton;
+    public ColorPicker colorPicker;
 
     private JFrame saveFrame = new JFrame();
-    private ArrayList<Shape> placedShapes = new ArrayList<>();
-    private ArrayList<Shape> oldPlacedShapes = new ArrayList<>();
-    private Mode currentMode = Mode.CIRCLE;
-    private Size currentSize = Size.SMALL;
+    public ArrayList<Shape> placedShapes = new ArrayList<>();
+    public ArrayList<Shape> oldPlacedShapes = new ArrayList<>();
+    public Mode currentMode = Mode.CIRCLE;
+    public Size currentSize = Size.SMALL;
     private Color originalColor = Color.WHITE;
     private final String[] SIZES = {"Small", "Medium", "Large"};
     private final double SMALL = 15;
@@ -62,7 +53,7 @@ public class Controller implements Initializable {
         setupSaveFrame();
         sizeSelectBox.getItems().addAll(SIZES);
         sizeSelectBox.setValue("Small"); //default value i menyn
-        sizeSelectBox.setOnAction(this::getSize);
+        sizeSelectBox.setOnAction(event -> setSize());
         gfxContext = canvas.getGraphicsContext2D();
         gfxContext.setFill(Color.WHITE);
         gfxContext.fillRect(0,0, canvas.getWidth(), canvas.getHeight());
@@ -76,7 +67,7 @@ public class Controller implements Initializable {
     }
 
 
-    public void getSize(ActionEvent event) {
+    public void setSize() {
         String tempCurrentSize = sizeSelectBox.getValue();
         switch (tempCurrentSize) {
             case "Small" -> currentSize = Size.SMALL;
@@ -90,13 +81,11 @@ public class Controller implements Initializable {
     public void rectangleMode() {
         currentMode = Mode.RECTANGLE;
         clearSelected();
-        repaintCanvas();
     }
 
     public void circleMode() {
         currentMode = Mode.CIRCLE;
         clearSelected();
-        repaintCanvas();
     }
 
     public void selectMode() {
@@ -119,6 +108,7 @@ public class Controller implements Initializable {
             }
         } else {
             clearSelected();
+            saveBeforeEdit();
             switch (currentMode) {
                 case CIRCLE -> createCircle(mouseEvent);
                 case RECTANGLE -> createRectangle(mouseEvent);
@@ -150,7 +140,6 @@ public class Controller implements Initializable {
     }
 
     private void modifyShape(Shape s) {
-        saveBeforeEdit();
         applyButton.setVisible(true);
         if (s instanceof Circle) {
             s.setSelected(true);
@@ -181,7 +170,7 @@ public class Controller implements Initializable {
         return false;
     }
 
-    private void clearSelected() {
+    public void clearSelected() {
         for (Shape s : placedShapes) {
             s.setSelected(false);
             applyButton.setVisible(false);
@@ -316,7 +305,7 @@ public class Controller implements Initializable {
         }
     }
 
-    public void undoChange(ActionEvent actionEvent) {
+    public void undoChange() {
         placedShapes.clear();
         placedShapes.addAll(oldPlacedShapes);
         clearSelected();
@@ -333,6 +322,7 @@ public class Controller implements Initializable {
         String fileName = "";
         String fileDir = "";
 
+
         FileDialog fd = new FileDialog(saveFrame, "Save", FileDialog.SAVE);
         fd.setMultipleMode(true);
         fd.setVisible(true);
@@ -343,7 +333,7 @@ public class Controller implements Initializable {
         }
 
         try {
-            FileWriter writer = new FileWriter(fileDir);
+            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName));
         } catch (Exception e) {
 
         }
