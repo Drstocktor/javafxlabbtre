@@ -8,25 +8,12 @@ import org.junit.jupiter.api.Test;
 class ControllerTest {
 
     @Test
-    void getSize() {
-
-    }
-
-    @Test
     void rectangleMode() {
         var controller = new Controller();
         controller.rectangleMode();
 
         Mode testMode = controller.currentMode;
         assertEquals(Mode.RECTANGLE, testMode);
-    }
-
-    @Test
-    void isInCircleMode() {
-    }
-
-    @Test
-    void selectMode() {
     }
 
     @Test
@@ -38,21 +25,8 @@ class ControllerTest {
         assertEquals(controller.oldPlacedShapes, controller.placedShapes);
     }
 
-
-    @Test
-    void getColor() {
-
-    }
-
     @Test
     void saveBeforeEdit() {
-    }
-
-    @Test
-    void sizeShouldChange() {
-    }
-
-    @Test
-    void saveFile() {
+        //todo important test
     }
 }
