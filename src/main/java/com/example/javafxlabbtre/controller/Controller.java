@@ -5,21 +5,28 @@ import com.example.javafxlabbtre.model.Rectangle;
 import com.example.javafxlabbtre.model.Shape;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 
+import java.awt.image.RenderedImage;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -49,6 +56,8 @@ public class Controller implements Initializable {
     private final double LARGE = 60;
     private final Color SELECTED_COLOR = Color.BLUE;
     private GraphicsContext gfxContext;
+
+    public Stage stage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -369,25 +378,49 @@ public class Controller implements Initializable {
     }
 
     public void saveFile(ActionEvent actionEvent) {
-        // todo code save file
-        String fileName = "";
-        String fileDir = "";
+        WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
+        Image i = canvas.snapshot(new SnapshotParameters(), null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save File");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+//        fileChooser.getExtensionFilters().clear();
+//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+
+        File file = fileChooser.showSaveDialog(stage);
+
+//        if (file != null) {
+//            // todo FML
+//            ImageIO.write(i,"png", new File("file.png"));
+////            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+//        }
 
 
-        FileDialog fd = new FileDialog(saveFrame, "Save", FileDialog.SAVE);
-        fd.setMultipleMode(true);
-        fd.setVisible(true);
 
-        if (fd.getFile() != null) {
-            fileName = fd.getFile();
-            fileDir = fd.getDirectory();
-        }
 
-        try {
-            ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(fileName));
-        } catch (Exception e) {
-
-        }
+//        // todo code save file
+//        String fileName = "";
+//        String fileDir = "";
+//        WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
+//
+//        FileDialog fd = new FileDialog(saveFrame, "Save", FileDialog.SAVE);
+//        fd.setMultipleMode(true);
+//        fd.setVisible(true);
+//
+//        if (fd.getFile() != null) {
+//            fileName = fd.getFile();
+//            fileDir = fd.getDirectory();
+//        }
+//
+//        File file = new File(fileName);
+//
+//        try {
+//            WritableImage writableImage = new WritableImage(560, 600);
+//            canvas.snapshot(null, writableImage);
+//            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+//            ImageIO.write(renderedImage, "png", file);
+//        } catch (Exception e) {
+//
+//        }
 
     }
 }
