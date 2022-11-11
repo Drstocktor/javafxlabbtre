@@ -5,28 +5,21 @@ import com.example.javafxlabbtre.model.Rectangle;
 import com.example.javafxlabbtre.model.Shape;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.image.Image;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-
-import java.awt.image.RenderedImage;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -43,8 +36,6 @@ public class Controller implements Initializable {
     public Button circleButton;
     public Button selectButton;
     public ColorPicker colorPicker;
-
-    private JFrame saveFrame = new JFrame();
     public List<Shape> placedShapes = new LinkedList<>();
     public List<Shape> oldPlacedShapes = new LinkedList<>();
     public Mode currentMode = Mode.CIRCLE;
@@ -61,7 +52,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setupSaveFrame();
         sizeSelectBox.getItems().addAll(SIZES);
         sizeSelectBox.setValue("Small"); //default value i menyn
         sizeSelectBox.setOnAction(event -> setSize());
@@ -71,12 +61,6 @@ public class Controller implements Initializable {
 
         // TODO lägg till animation
     }
-
-    private void setupSaveFrame() {
-        saveFrame.setVisible(false);
-        saveFrame.setSize(400, 400);
-    }
-
 
     public void setSize() {
         String tempCurrentSize = sizeSelectBox.getValue();
@@ -378,49 +362,54 @@ public class Controller implements Initializable {
     }
 
     public void saveFile(ActionEvent actionEvent) {
-        WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
-        Image i = canvas.snapshot(new SnapshotParameters(), null);
+
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save File");
+        fileChooser.setTitle("Save as");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-//        fileChooser.getExtensionFilters().clear();
-//        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+        fileChooser.getExtensionFilters().clear();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG","*.svg"));
 
-        File file = fileChooser.showSaveDialog(stage);
+        File filePath = fileChooser.showSaveDialog(stage);
 
-//        if (file != null) {
-//            // todo FML
-//            ImageIO.write(i,"png", new File("file.png"));
-////            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-//        }
+        if(filePath != null) {
+            convertToSVG(filePath.toPath());
+        }
 
+    }
 
+    private void convertToSVG(Path file) {
+        StringBuffer outPut = new StringBuffer();
 
+        outPut.append("<svg width=\"600\" height=\"500\" xmlns=\"http://www.w3.org/2000/svg\">");
 
-//        // todo code save file
-//        String fileName = "";
-//        String fileDir = "";
-//        WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
-//
-//        FileDialog fd = new FileDialog(saveFrame, "Save", FileDialog.SAVE);
-//        fd.setMultipleMode(true);
-//        fd.setVisible(true);
-//
-//        if (fd.getFile() != null) {
-//            fileName = fd.getFile();
-//            fileDir = fd.getDirectory();
-//        }
-//
-//        File file = new File(fileName);
-//
-//        try {
-//            WritableImage writableImage = new WritableImage(560, 600);
-//            canvas.snapshot(null, writableImage);
-//            RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-//            ImageIO.write(renderedImage, "png", file);
-//        } catch (Exception e) {
-//
-//        }
+        for (var s : placedShapes) {
+
+            if(s instanceof Circle) {
+                outPut.append("<circle cx=\"" + s.getPositionX() +
+                        "\" cy=\"" + s.getPositionY() +
+                        "\" r=\"" + s.convertToInt() +
+                        "\" fill=\"#" +
+                        s.getColor().toString().substring(2,8) +
+                        "\" />");
+
+            }
+            if (s instanceof Rectangle) {
+                outPut.append("<rect x=\"" + (s.getPositionX() - s.convertToInt()) +
+                        "\" y=\"" + (s.getPositionY() - s.convertToInt()) +
+                        "\" width=\"" + (s.convertToInt() * 2) +
+                        "\" height=\"" + (s.convertToInt() * 2) +
+                        "\" fill=\"#" +
+                        s.getColor().toString().substring(2,8) +
+                        "\" />");
+            }
+        }
+        outPut.append("</svg>");
+
+        try {
+            Files.writeString(file,outPut.toString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

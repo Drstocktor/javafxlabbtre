@@ -69,4 +69,18 @@ public abstract class Shape {
     public int hashCode() {
         return Objects.hash(positionX, positionY, color, size, selected);
     }
+
+    public int convertToInt(){
+        int intSize = 0;
+
+        if(this.size.equals(Size.SMALL)) {
+            intSize = 8;
+        }else if(this.size.equals(Size.MEDIUM)) {
+            intSize = 15;
+        }else if(this.size.equals(Size.LARGE)) {
+            intSize = 30;
+        }
+        return intSize;
+    }
+
 }
