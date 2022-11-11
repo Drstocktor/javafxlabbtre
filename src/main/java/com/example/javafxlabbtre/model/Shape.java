@@ -4,7 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
-public abstract class Shape implements {
+public abstract class Shape {
     private double positionX;
     private double positionY;
     private Color color;
