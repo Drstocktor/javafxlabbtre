@@ -2,19 +2,9 @@ package com.example.javafxlabbtre.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.example.javafxlabbtre.model.Mode;
 import org.junit.jupiter.api.Test;
 
 class ControllerTest {
-
-    @Test
-    void rectangleMode() {
-        var controller = new Controller();
-        controller.rectangleMode();
-
-        Mode testMode = controller.currentMode;
-        assertEquals(Mode.RECTANGLE, testMode);
-    }
 
     @Test
     void newListShouldBeOldList() {
@@ -26,7 +16,9 @@ class ControllerTest {
     }
 
     @Test
-    void saveBeforeEdit() {
-        //todo important test
+    void hasNoSelected() {
+        var controller = new Controller();
+
+        assertFalse(controller.hasSelected());
     }
 }

@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -58,8 +59,6 @@ public class Controller implements Initializable {
         gfxContext = canvas.getGraphicsContext2D();
         gfxContext.setFill(Color.WHITE);
         gfxContext.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        // TODO lägg till animation
     }
 
     public void setSize() {
@@ -97,6 +96,8 @@ public class Controller implements Initializable {
 
     public void placeShape(MouseEvent mouseEvent) {
         boolean proximity = checkProximity(mouseEvent);
+        double x = mouseEvent.getX();
+        double y = mouseEvent.getY();
         if (proximity) {
             if (currentMode == Mode.SELECT) {
                 if (hasSelected()) {
@@ -109,8 +110,8 @@ public class Controller implements Initializable {
             clearSelected();
             repaintCanvas();
             switch (currentMode) {
-                case CIRCLE -> createCircle(mouseEvent);
-                case RECTANGLE -> createRectangle(mouseEvent);
+                case CIRCLE -> createCircle(x, y);
+                case RECTANGLE -> createRectangle(x, y);
                 case SELECT -> selectObject(mouseEvent);
             }
         }
@@ -194,77 +195,20 @@ public class Controller implements Initializable {
         }
     }
 
-    private void createRectangle(MouseEvent e) {
+    public void createRectangle(double x, double y) {
         // Constructor: double positionX, double positionY, Color color, Size size, double base, double height
-        switch (currentSize) {
-            case SMALL -> {
-                Rectangle rectangle = new Rectangle(e.getX(), e.getY(), getColor(), currentSize, SMALL, SMALL);
-                paintRectangle(rectangle);
-                saveBeforeEdit();
-                placedShapes.add(rectangle);
-            }
-            case MEDIUM -> {
-                Rectangle rectangle = new Rectangle(e.getX(), e.getY(), getColor(), currentSize, MEDIUM, MEDIUM);
-                paintRectangle(rectangle);
-                saveBeforeEdit();
-                placedShapes.add(rectangle);
-            }
-            case LARGE -> {
-                Rectangle rectangle = new Rectangle(e.getX(), e.getY(), getColor(), currentSize, LARGE, LARGE);
-                paintRectangle(rectangle);
-                saveBeforeEdit();
-                placedShapes.add(rectangle);
-            }
-        }
+        Rectangle rectangle = new Rectangle(x, y, getColor(), currentSize, currentSize.getSize(), currentSize.getSize());
+        paintRectangle(rectangle);
+        saveBeforeEdit();
+        placedShapes.add(rectangle);
     }
 
-    private void createCircle(MouseEvent e) {
+    public void createCircle(double x, double y) {
         // Constructor: double positionX, double positionY, Color color, Size size, double radius
-        switch (currentSize) {
-            case SMALL -> {
-                Circle circle = new Circle(e.getX(), e.getY(), getColor(), currentSize, SMALL);
-                paintCircle(circle);
-                saveBeforeEdit();
-                placedShapes.add(circle);
-            }
-            case MEDIUM -> {
-                Circle circle = new Circle(e.getX(), e.getY(), getColor(), currentSize, MEDIUM);
-                paintCircle(circle);
-                saveBeforeEdit();
-                placedShapes.add(circle);
-            }
-            case LARGE -> {
-                Circle circle = new Circle(e.getX(), e.getY(), getColor(), currentSize, LARGE);
-                paintCircle(circle);
-                saveBeforeEdit();
-                placedShapes.add(circle);
-            }
-        }
-    }
-
-    private void setNewSize(Shape s) {
-        if (s instanceof Circle) {
-            switch (currentSize) {
-                case SMALL -> ((Circle) s).setRadius(SMALL);
-                case MEDIUM -> ((Circle) s).setRadius(MEDIUM);
-                case LARGE -> ((Circle) s).setRadius(LARGE);
-            }
-        } else {
-            switch (currentSize) {
-                case SMALL -> {
-                    ((Rectangle) s).setWidth(SMALL);
-                    ((Rectangle) s).setHeight(SMALL);
-                }
-                case MEDIUM -> {
-                    ((Rectangle) s).setWidth(MEDIUM);
-                    ((Rectangle) s).setHeight(MEDIUM);
-                }
-                case LARGE -> {
-                    ((Rectangle) s).setWidth(LARGE);
-                    ((Rectangle) s).setHeight(LARGE);
-                }
-            }
-        }
+        Circle circle = new Circle(x, y, getColor(), currentSize, currentSize.getSize());
+        paintCircle(circle);
+        saveBeforeEdit();
+        placedShapes.add(circle);
     }
 
     private void paintCircle(Circle circle) {
@@ -283,56 +227,15 @@ public class Controller implements Initializable {
             if (s.isSelected()) {
                 double x = s.getPositionX();
                 double y = s.getPositionY();
-
-                // todo create new circle
                 setSize();
                 if (s instanceof Circle) {
-                    editCircle(x, y);
+                    createCircle(x, y);
                 } else {
-                    editRectangle(x, y);
+                    createRectangle(x, y);
                 }
                 placedShapes.remove(s);
                 repaintCanvas();
                 break;
-            }
-        }
-    }
-
-    private void editCircle(double x, double y) {
-        // Constructor: double positionX, double positionY, Color color, Size size, double radius
-        switch (currentSize) {
-            case SMALL -> {
-                Circle circle = new Circle(x, y, getColor(), currentSize, SMALL);
-                paintCircle(circle);
-                placedShapes.add(circle);
-            }
-            case MEDIUM -> {
-                Circle circle = new Circle(x, y, getColor(), currentSize, MEDIUM);
-                paintCircle(circle);
-                placedShapes.add(circle);
-            }
-            case LARGE -> {
-                Circle circle = new Circle(x, y, getColor(), currentSize, LARGE);
-                paintCircle(circle);
-                placedShapes.add(circle);
-            }
-        }
-    }
-
-    private void editRectangle(double x, double y) {
-        // Constructor: double positionX, double positionY, Color color, Size size, double base, double height
-        switch (currentSize) {
-            case SMALL -> {
-                Rectangle rectangle = new Rectangle(x, y, getColor(), currentSize, SMALL, SMALL);
-                placedShapes.add(rectangle);
-            }
-            case MEDIUM -> {
-                Rectangle rectangle = new Rectangle(x, y, getColor(), currentSize, MEDIUM, MEDIUM);
-                placedShapes.add(rectangle);
-            }
-            case LARGE -> {
-                Rectangle rectangle = new Rectangle(x, y, getColor(), currentSize, LARGE, LARGE);
-                placedShapes.add(rectangle);
             }
         }
     }
@@ -367,11 +270,11 @@ public class Controller implements Initializable {
         fileChooser.setTitle("Save as");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileChooser.getExtensionFilters().clear();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG","*.svg"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg"));
 
         File filePath = fileChooser.showSaveDialog(stage);
 
-        if(filePath != null) {
+        if (filePath != null) {
             convertToSVG(filePath.toPath());
         }
 
@@ -384,12 +287,12 @@ public class Controller implements Initializable {
 
         for (var s : placedShapes) {
 
-            if(s instanceof Circle) {
+            if (s instanceof Circle) {
                 outPut.append("<circle cx=\"" + s.getPositionX() +
                         "\" cy=\"" + s.getPositionY() +
                         "\" r=\"" + s.convertToInt() +
                         "\" fill=\"#" +
-                        s.getColor().toString().substring(2,8) +
+                        s.getColor().toString().substring(2, 8) +
                         "\" />");
 
             }
@@ -399,14 +302,14 @@ public class Controller implements Initializable {
                         "\" width=\"" + (s.convertToInt() * 2) +
                         "\" height=\"" + (s.convertToInt() * 2) +
                         "\" fill=\"#" +
-                        s.getColor().toString().substring(2,8) +
+                        s.getColor().toString().substring(2, 8) +
                         "\" />");
             }
         }
         outPut.append("</svg>");
 
         try {
-            Files.writeString(file,outPut.toString());
+            Files.writeString(file, outPut.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="finishing save and then completed.">
+    <list default="true" id="0cb3d3c0-87c5-4f13-bf68-d43def931e0a" name="Changes" comment="finished. small optimization possible.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Size.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Size.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/javafxlabbtre/controller/ControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/javafxlabbtre/controller/ControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,21 +37,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "last_opened_file_path": "C:/Users/talib/Documents/laborationtre-master",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/talib/Documents/laborationtre-master&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -59,7 +60,7 @@
       <recent name="com.example.javafxlabbtre.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HelloApplication">
+  <component name="RunManager" selected="JUnit.ControllerTest.newListShouldBeOldList">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.javafxlabbtre.HelloApplication" />
       <module name="javafxlabbtre" />
@@ -84,6 +85,22 @@
       <option name="PACKAGE_NAME" value="com.example.javafxlabbtre.controller" />
       <option name="MAIN_CLASS_NAME" value="com.example.javafxlabbtre.controller.ControllerTest" />
       <option name="METHOD_NAME" value="getColor" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerTest.hasNoSelected" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="javafxlabbtre" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.javafxlabbtre.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.javafxlabbtre.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.example.javafxlabbtre.controller.ControllerTest" />
+      <option name="METHOD_NAME" value="hasNoSelected" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -123,8 +140,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HelloApplication" />
         <item itemvalue="JUnit.ControllerTest.newListShouldBeOldList" />
+        <item itemvalue="JUnit.ControllerTest.hasNoSelected" />
+        <item itemvalue="Application.HelloApplication" />
         <item itemvalue="JUnit.ControllerTest.rectangleMode" />
         <item itemvalue="JUnit.ControllerTest.getColor" />
       </list>
@@ -152,7 +170,11 @@
       <workItem from="1667805601658" duration="2409000" />
       <workItem from="1667856003898" duration="35674000" />
       <workItem from="1667988195920" duration="1047000" />
-      <workItem from="1668030121740" duration="40169000" />
+      <workItem from="1668030121740" duration="40441000" />
+      <workItem from="1668586655683" duration="4146000" />
+      <workItem from="1668721269581" duration="12000" />
+      <workItem from="1668749922337" duration="965000" />
+      <workItem from="1668806663409" duration="2367000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1666206754650</created>
@@ -264,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668149416194</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="finished. small optimization possible.">
+      <created>1668200699959</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1668200699959</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +322,8 @@
     <MESSAGE value="fixing save and tests" />
     <MESSAGE value="finishing save and repairing undo button" />
     <MESSAGE value="finishing save and then completed." />
-    <option name="LAST_COMMIT_MESSAGE" value="finishing save and then completed." />
+    <MESSAGE value="finished. small optimization possible." />
+    <option name="LAST_COMMIT_MESSAGE" value="finished. small optimization possible." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -309,42 +339,47 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>129</line>
+          <line>121</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>91</line>
+          <line>81</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>181</line>
+          <line>173</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>163</line>
+          <line>155</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>97</line>
+          <line>87</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>349</line>
+          <line>243</line>
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>150</line>
+          <line>142</line>
           <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
+          <line>224</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>73</line>
+          <line>63</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="setSize">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -353,7 +388,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>149</line>
+          <line>141</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="modifyShape">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -362,7 +397,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>288</line>
+          <line>223</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="applyChange">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -371,21 +406,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>348</line>
+          <line>242</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="repaintCanvas">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>67</line>
-          <properties class="com.example.javafxlabbtre.controller.Controller" method="setupSaveFrame">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/model/Shape.java</url>
@@ -398,7 +424,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>180</line>
+          <line>172</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="clearSelected">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -407,7 +433,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>229</line>
+          <line>205</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="createCircle">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -416,12 +442,30 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
-          <line>106</line>
+          <line>96</line>
           <properties class="com.example.javafxlabbtre.controller.Controller" method="placeShape">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
+          <line>218</line>
+          <properties class="com.example.javafxlabbtre.controller.Controller" method="paintRectangle">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/javafxlabbtre/controller/Controller.java</url>
+          <line>254</line>
+          <properties class="com.example.javafxlabbtre.controller.Controller" method="undoChange">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
